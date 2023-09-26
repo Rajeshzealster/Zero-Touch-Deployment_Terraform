@@ -1,0 +1,59 @@
+<!-- templates/team_info.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ team_name }} Players</title>
+    <style>
+        /* Style for the table */
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        /* Style for table headers */
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        /* Style for table header row */
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Style for player images */
+        .player-image {
+            max-width: 200px;
+            max-height: 200px;
+        }
+    </style>
+</head>
+<body>
+<h1>{{ team_name }} Players:</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Player Image</th>
+        <th>Player Name</th>
+        <th>Availability</th>
+        <th>Capability</th>
+        <!-- You can add more player attributes here -->
+    </tr>
+    </thead>
+    <tbody>
+    {% for player in team_info %}
+    <tr>
+        <td><img class="player-image" src="{{ player['image'] }}" alt="{{ player['name'] }}"></td>
+        <td>{{ player['name'] }}</td>
+        <td>{{ player['availability'] }}</td>
+        <td>{{ player['capability'] }}</td>
+        <!-- You can add more player attributes here -->
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>

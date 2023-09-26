@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>HPL 5 Auction</title>
+</head>
+<body>
+    <div class="header">
+        <h1>HPL 5 Auction</h1>
+        <button class="refresh-button" id="next-player-button" onclick="getNextPlayer()">View Next Player</button>
+    <div id="player-details" style="display: none;">
+        <h2>Player Details</h2>
+        <p><strong>Name:</strong> <span id="player-name"></span></p>
+        <p><strong>Availability:</strong> <span id="player-availability"></span></p>
+        <p><strong>Capability:</strong> <span id="player-capability"></span></p>
+        <img id="player-image" src="" alt="Player Image" style="max-width: 200px;">
+    </div>
+
+    <script>
+        function getNextPlayer() {
+            // Send a request to the Flask API to get the next player
+            window.location.href ='/get_next_player';
+            fetch('/get_next_player')
+                .then(response => response.json())
+                .then(playerData => {
+                    // Update the player details on the webpage
+                    document.getElementById('player-name').textContent = playerData.name;
+                    document.getElementById('player-availability').textContent = playerData.availability;
+                    document.getElementById('player-capability').textContent = playerData.capability;
+                    document.getElementById('player-image').src = playerData.image;
+
+                    // Show the player details container
+                    document.getElementById('player-details').style.display = 'block';
+                });
+        }
+    </script>
+    </div>
+    <div class="content">
+        <div class="image">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Image">
+        </div>
+        <div class="csv-data">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="font-size: 24px; text-align: center;">Team Name</th>
+                        <th style="font-size: 24px">Points Used</th>
+                        <th style="font-size: 24px;">Points Left</th>
+                        <th style="font-size: 24px;">No of Players</th>
+                        <!-- Add more columns as needed -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row,team in data_and_teams %}
+                    <tr>
+                        <td style="font-size: 22px; text-align: center;"><a href="{{ url_for('team_info', team_name=team) }}">{{ row['Team']}}</a></td>
+                        <td style="font-size: 22px;">{{ row['Amount used'] }}</td>
+                        <td style="font-size: 22px;">{{ row['Amount left'] }}</td>
+                        <td style="font-size: 22px;">{{ row['No of Players'] }}</td>
+                        
+                        <!-- Add more columns as needed -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+
