@@ -69,3 +69,14 @@ To destroy the AWS resources and terminate the application:
 ```shell
 cd terraform
 terraform destroy
+```
+
+## Contributing
+
+If you would like to contribute to this project, please open an issue or submit a pull request. We welcome your contributions.
+
+
+## Contact
+
+For questions or feedback, feel free to contact the project maintainer:
+- Rajesh Thalla - <rajeshzealster@gmail.com>
